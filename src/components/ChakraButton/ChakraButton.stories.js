@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from '@chakra-ui/react';
 import { action, actions } from '@storybook/addon-actions';
+import { text, boolean } from '@storybook/addon-knobs';
 
 /**argTypesでコンポーネントの引数のコントロールを定義。storybookのUI上で調整可能になる */
 export default {
@@ -33,4 +34,12 @@ export const Success = () => <Button onClick={action('Click handler')} colorSche
 export const Danger = () => <Button {...actions('onClick', 'onMouseOver')} colorScheme='red'>Danger</Button>
 
 /**Logの表示 */
-export const Log = () => <Button colorScheme="green" onClick={() => console.log('Button clicked')}>Log</Button>
+ export const Log = () => <Button colorScheme="green" onClick={() => console.log('Button clicked', process.env.STORYBOOK_THEME)}>Log</Button>;
+
+/**knobsの表示※importの違いにより、isDisabledにする
+*/
+ export const Knobs = () => (
+  <Button colorScheme="purple" isDisabled={boolean('Disabled', false)}>
+    {text('label', 'Button Label')}
+  </Button>
+ )
